@@ -148,4 +148,38 @@ Let `f : A → B` be a function.
 
 Given a subset `S : set A` of `A`, we can construct the image of `S` under `f`,
 that is, the subset `f '' S : set B` defined as `{b : B | ∃ a : A, a ∈ S ∧ f a = b}`.
+This is notation for `Set.image`.
+
+Given a subset `T : set B` of `B`, we can construct the preimage of `T` under `f`,
+that is, the subset `f⁻¹' T : set A` defined as `{a : A | f a ∈ T}`.
+This is notation for `Set.preimage`.
 -/
+
+variable (A B : Type) (f : A → B) (S : Set A) (T : Set B)
+
+example : S ⊆ f⁻¹' (f '' S) := by
+  intro a ha
+  simp only [Set.mem_preimage, Set.mem_image]
+  use a
+
+example : f '' (f⁻¹' T) ⊆ T := by
+  sorry
+
+example : f '' S ⊆ T ↔ S ⊆ f⁻¹' T := by
+  sorry
+
+/-
+### Universal and existential quantifiers
+-/
+
+lemma not_exists_iff_forall_not : ¬ (∃ a, a ∈ X) ↔ ∀ b, ¬(b ∈ X) := by
+  sorry
+
+example : ¬ (∀ a, a ∈ X) ↔ ∃ b, ¬(b ∈ X) := by
+  sorry
+
+example (f : A → B) : A → B := sorry
+
+example : (A → B) → A → B := sorry
+
+end sets
