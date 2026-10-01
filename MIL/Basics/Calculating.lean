@@ -93,26 +93,17 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
     _ = a * a + 2 * (a * b) + b * b := by
       rw [mul_comm b a, ← two_mul]
 
-example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
-  calc
-    (a + b) * (a + b) = a * a + b * a + (a * b + b * b) := by
-      sorry
-    _ = a * a + (b * a + a * b) + b * b := by
-      sorry
-    _ = a * a + 2 * (a * b) + b * b := by
-      sorry
-
-end
 
 -- Try these. For the second, use the theorems listed underneath.
 section
 variable (a b c d : ℝ)
 
 example : (a + b) * (c + d) = a * c + a * d + b * c + b * d := by
-  sorry
+  rw [mul_add, add_mul, add_mul]
+  ac_rfl
 
 example (a b : ℝ) : (a + b) * (a - b) = a ^ 2 - b ^ 2 := by
-  sorry
+  ring
 
 #check pow_two a
 #check mul_sub a b c
