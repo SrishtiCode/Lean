@@ -1,7 +1,11 @@
+import Mathlib
+
 /-  **Basics**  -/
 
 /-**1. Calculating**-/
-import Mathlib.Data.Real.Basic
+
+section Calculating
+variable (a b c : ℝ)
 
 #check a -- a : ℝ  
 #check a + b -- a + b : ℝ   
@@ -19,9 +23,12 @@ import Mathlib.Data.Real.Basic
 #check sub_sub a b c -- sub_sub a b c : a - b - c = a - (b + c)
 #check add_zero a -- add_zero a : a + 0 = a
 
+end Calculating
+
 /-**2. Proving_Identites_in_Algebraic_Structures**-/
-import Mathlib.Algebra.Ring.Defs
-import Mathlib.Data.Real.Basic
+
+section Rings
+variable {R : Type*} [Ring R]
 
 #check (add_assoc : ∀ a b c : R, a + b + c = a + (b + c))  -- add_assoc : ∀ (a b c : R), a + b + c = a + (b + c)
 #check (add_comm : ∀ a b : R, a + b = b + a) -- add_comm : ∀ (a b : R), a + b = b + a 
@@ -33,10 +40,12 @@ import Mathlib.Data.Real.Basic
 #check (mul_add : ∀ a b c : R, a * (b + c) = a * b + a * c) -- mul_add : ∀ (a b c : R), a * (b + c) = a * b + a * c
 #check (add_mul : ∀ a b c : R, (a + b) * c = a * c + b * c) -- add_mul : ∀ (a b c : R), (a + b) * c = a * c + b * c
 
-#check MyRing.add_zero -- MyRing.add_zero.{u_1} {R : Type u_1} [Ring R] (a : R) : a + 0 = a
-#check add_zero -- MyRing.add_zero.{u_1} {R : Type u_1} [Ring R] (a : R) : a + 0 = a
-
 #check sub_add_cancel -- sub_add_cancel.{u_1} {G : Type u_1} [AddGroup G] (a b : G) : a - b + b = a
+
+end Rings
+
+section Groups
+variable {A : Type*} [AddGroup A] {G : Type*} [Group G]
 
 #check (add_assoc : ∀ a b c : A, a + b + c = a + (b + c)) -- add_assoc : ∀ (a b c : A), a + b + c = a + (b + c) 
 #check (zero_add : ∀ a : A, 0 + a = a) -- zero_add : ∀ (a : A), 0 + a = a
@@ -46,8 +55,13 @@ import Mathlib.Data.Real.Basic
 #check (one_mul : ∀ a : G, 1 * a = a) -- one_mul : ∀ (a : G), 1 * a = a
 #check (inv_mul_cancel : ∀ a : G, a⁻¹ * a = 1) -- inv_mul_cancel : ∀ (a : G), a⁻¹ * a = 1
 
+end Groups
+
 /-**3. Using_Theorems_and_Lemmas**-/
-import MIL.Common
+
+section Inequalities
+open Real
+variable (a b c d : ℝ)
 
 #check (le_refl : ∀ a : ℝ, a ≤ a) -- le_refl : ∀ (a : ℝ), a ≤ a
 #check (le_trans : a ≤ b → b ≤ c → a ≤ c) -- le_trans : a ≤ b → b ≤ c → a ≤ c
@@ -60,6 +74,7 @@ variable (h : a ≤ b) (h' : b ≤ c)
 #check (le_trans : a ≤ b → b ≤ c → a ≤ c)
 #check (le_trans h : b ≤ c → a ≤ c)
 #check (le_trans h h' : a ≤ c)
+end
 
 #check (le_refl : ∀ a, a ≤ a)
 #check (le_trans : a ≤ b → b ≤ c → a ≤ c)
@@ -87,7 +102,6 @@ variable (h : a ≤ b) (h' : b ≤ c)
 #check abs_le'.mpr --abs_le'.mpr : ?m.4 ≤ ?m.5 ∧ -?m.4 ≤ ?m.5 → |?m.4| ≤ ?m.5
 
 /-**4. More_on_Order_and_Divisibility**-/
-import Mathlib.Data.Real.Basic
 
 #check (min_le_left a b : min a b ≤ a)
 #check (min_le_right a b : min a b ≤ b)
@@ -95,13 +109,18 @@ import Mathlib.Data.Real.Basic
 
 #check (abs_add_le : ∀ a b : ℝ, |a + b| ≤ |a| + |b|)
 
+variable (n : ℕ)
 #check (Nat.gcd_zero_right n : Nat.gcd n 0 = n)
 #check (Nat.gcd_zero_left n : Nat.gcd 0 n = n)
 #check (Nat.lcm_zero_right n : Nat.lcm n 0 = 0)
 #check (Nat.lcm_zero_left n : Nat.lcm 0 n = 0)
 
+end Inequalities
+
 /-**5. Proving_Facts_about_Algebraic_Structures**-/
-import Mathlib.Topology.MetricSpace.Basic
+
+section Orders
+variable {α : Type*} [PartialOrder α] (x y z : α)
 
 #check x ≤ y -- x ≤ y : Prop
 #check (le_refl x : x ≤ x)
@@ -114,6 +133,9 @@ import Mathlib.Topology.MetricSpace.Basic
 #check (lt_of_le_of_lt : x ≤ y → y < z → x < z)
 #check (lt_of_lt_of_le : x < y → y ≤ z → x < z)
 
+end Orders
+
+section Lattices
 -- ⊓ = infimum / meet
 -- ⊔ = supremum / join
 variable {α : Type*} [Lattice α]
@@ -127,6 +149,9 @@ variable (x y z : α)
 #check (le_sup_right : y ≤ x ⊔ y)
 #check (sup_le : x ≤ z → y ≤ z → x ⊔ y ≤ z)
 
+end Lattices
+
+section DistribLattices
 variable {α : Type*} [DistribLattice α]
 variable (x y z : α)
 #check (inf_sup_left x y z : x ⊓ (y ⊔ z) = x ⊓ y ⊔ x ⊓ z)
@@ -134,22 +159,22 @@ variable (x y z : α)
 #check (sup_inf_left x y z : x ⊔ y ⊓ z = (x ⊔ y) ⊓ (x ⊔ z))
 #check (sup_inf_right x y z : x ⊓ y ⊔ z = (x ⊔ z) ⊓ (y ⊔ z))
 
+end DistribLattices
+
+section OrderedRings
 variable {R : Type*} [Ring R] [PartialOrder R] [IsStrictOrderedRing R]
 variable (a b c : R)
 #check (add_le_add_right : a ≤ b → ∀ c, c + a ≤ c + b)
 #check (mul_pos : 0 < a → 0 < b → 0 < a * b)
 #check (mul_nonneg : 0 ≤ a → 0 ≤ b → 0 ≤ a * b)
 
+end OrderedRings
+
+section Metric
 variable {X : Type*} [MetricSpace X]
 variable (x y z : X)
 #check (dist_self x : dist x x = 0)
 #check (dist_comm x y : dist x y = dist y x)
 #check (dist_triangle x y z : dist x z ≤ dist x y + dist y z)
 
-
-
-
-
-
-
-
+end Metric

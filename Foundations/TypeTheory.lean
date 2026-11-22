@@ -7,10 +7,19 @@ def b2 : Bool := false
 
 /- Check their types. -/
 
-#check m#check n#check n + 0#check m * (n + 0)#check b1-- "&&" is the Boolean and
-#check b1 && b2-- Boolean or
-#check b1 || b2-- Boolean "true"
-#check true/- Evaluate -/
+#check m
+#check n
+#check n + 0
+#check m * (n + 0)
+#check b1
+-- "&&" is the Boolean and
+#check b1 && b2
+-- Boolean or
+#check b1 || b2
+-- Boolean "true"
+#check true
+
+/- Evaluate -/
 
 #eval 5 * 4
 #eval m + 2
@@ -26,7 +35,8 @@ def b2 : Bool := false
 #check (Nat → Nat) → Nat -- a "functional"
 
 
-#check Nat.succ#check (0, 1)
+#check Nat.succ
+#check (0, 1)
 #check Nat.add
 #check Nat.succ 2
 #check Nat.add 3

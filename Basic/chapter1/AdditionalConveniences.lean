@@ -32,21 +32,22 @@ def length (xs : List α) : Nat :=
 
 -- you can put the patterns directly after the type:
 
-def length : List α → Nat
+def length' : List α → Nat
   | [] => 0
-  | y :: ys => Nat.succ (length ys)
+  | y :: ys => Nat.succ (length' ys)
 
 --Local definitions with let
 
 
---Instead:
+/- Instead:
 
-let unzipped := unzip xys
+    let unzipped := unzip xys
 
---and then:
+  and then:
 
-unzipped.fst
-unzipped.snd
+    unzipped.fst
+    unzipped.snd
+-/
 
 --Now the recursive result is computed once and reused.
 

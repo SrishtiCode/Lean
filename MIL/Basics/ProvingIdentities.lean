@@ -1,24 +1,6 @@
-/-
-  ============================================================
-  BASIC RING DEFINITIONS AND THEOREMS
-  ============================================================
+import Mathlib
 
-  We import some basic algebraic definitions and theorems.
-
-  `Mathlib.Algebra.Ring.Defs`
-      Gives us definitions and basic facts about rings.
-
-  `Mathlib.Data.Real.Basic`
-      Gives us basic facts about the real numbers ℝ.
-
-  `MIL.Common`
-      Common imports used by the Mathematics in Lean course.
--/
-
-import Mathlib.Algebra.Ring.Defs
-import Mathlib.Data.Real.Basic
-import MIL.Common
-
+/-! # Proving identities in rings (Mathematics in Lean §2.2) -/
 
 /-
   ============================================================
@@ -559,7 +541,7 @@ theorem mul_zero (a : R) : a * 0 = 0 := by
   -- a*0 + a*0 = a*0 + 0
   have h : a * 0 + a * 0 = a * 0 + 0 := by
 
-    /*
+    /-
       `← mul_add` works backwards from:
 
           a * (0 + 0) = a * 0 + a * 0
@@ -579,7 +561,7 @@ theorem mul_zero (a : R) : a * 0 = 0 := by
       and the second `add_zero` changes:
 
           a * 0 + 0 → a * 0
-    */
+    -/
     rw [← mul_add, add_zero, add_zero]
 
   -- From:
@@ -613,7 +595,7 @@ theorem zero_mul (a : R) : 0 * a = 0 := by
   -- Construct the equality needed for cancellation.
   have h : 0 * a + 0 * a = 0 * a + 0 := by
 
-    /*
+    /-
       `← add_mul` changes:
 
           0*a + 0*a
@@ -623,7 +605,7 @@ theorem zero_mul (a : R) : 0 * a = 0 := by
           (0 + 0) * a
 
       Then `add_zero` simplifies the zero addition.
-    */
+    -/
     rw [← add_mul, add_zero, add_zero]
 
   -- Cancel 0*a from both sides.
@@ -1009,17 +991,17 @@ namespace MyGroup
 -/
 theorem mul_inv_cancel (a : G) : a * a⁻¹ = 1 := by
 
-  /*
+  /-
     We first prove:
 
       (a * a⁻¹)⁻¹ * (a * a⁻¹ * (a * a⁻¹)) = 1
 
     The expression is constructed so that inverse cancellation
     can eventually reduce it.
-  */
+  -/
   have h : (a * a⁻¹)⁻¹ * (a * a⁻¹ * (a * a⁻¹)) = 1 := by
 
-    /*
+    /-
       `mul_assoc` changes grouping.
 
       `← mul_assoc a⁻¹ a` allows the expression involving
@@ -1034,16 +1016,16 @@ theorem mul_inv_cancel (a : G) : a * a⁻¹ = 1 := by
           1 * x = x
 
       Finally `inv_mul_cancel` is used again.
-    */
+    -/
     rw [mul_assoc, ← mul_assoc a⁻¹ a, inv_mul_cancel, one_mul,
         inv_mul_cancel]
 
-  /*
+  /-
     Now rewrite the goal using h.
 
     The rest is a sequence of associativity and cancellation
     steps that reduce the expression to a * a⁻¹ = 1.
-  */
+  -/
   rw [← h, ← mul_assoc, inv_mul_cancel, one_mul]
 
 
@@ -1071,7 +1053,7 @@ theorem mul_inv_cancel (a : G) : a * a⁻¹ = 1 := by
 -/
 theorem mul_one (a : G) : a * 1 = a := by
 
-  /*
+  /-
     Start with:
 
       a
@@ -1079,7 +1061,7 @@ theorem mul_one (a : G) : a * 1 = a := by
     and rewrite it backwards using:
 
       a⁻¹ * a = 1
-  */
+  -/
   rw [← inv_mul_cancel a, ← mul_assoc, mul_inv_cancel, one_mul]
 
 
@@ -1105,7 +1087,7 @@ theorem mul_one (a : G) : a * 1 = a := by
 -/
 theorem mul_inv_rev (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
 
-  /*
+  /-
     We introduce 1 on the left:
 
         b⁻¹ * a⁻¹
@@ -1113,50 +1095,50 @@ theorem mul_inv_rev (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
         1 * (b⁻¹ * a⁻¹)
 
     using `one_mul` backwards.
-  */
+  -/
   rw [← one_mul (b⁻¹ * a⁻¹),
 
-      /*
+      /-
         Introduce the expression:
 
             (a*b)⁻¹ * (a*b)
 
         using `inv_mul_cancel`.
-      */
+      -/
       ← inv_mul_cancel (a * b),
 
-      /*
+      /-
         Rearrange the grouping of the products.
-      */
+      -/
       mul_assoc,
       mul_assoc,
 
-      /*
+      /-
         Make `b * b⁻¹` visible.
-      */
+      -/
       ← mul_assoc b b⁻¹,
 
-      /*
+      /-
         Cancel:
             b * b⁻¹ = 1
-      */
+      -/
       mul_inv_cancel,
 
-      /*
+      /-
         Simplify:
             1 * a⁻¹ = a⁻¹
-      */
+      -/
       one_mul,
 
-      /*
+      /-
         Cancel the remaining inverse/product.
-      */
+      -/
       mul_inv_cancel,
 
-      /*
+      /-
         Finally:
             a * 1 = a
-      */
+      -/
       mul_one]
 
 end MyGroup

@@ -21,9 +21,6 @@ def G : Type → Type → Type := Prod
 #check G α β
 #check G α Nat
 
-def α : Type := Nat
-def β : Type := Bool
-
 #check Prod α β
 #check α × β
 #check Prod Nat Nat

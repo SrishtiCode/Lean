@@ -1,8 +1,10 @@
-import Mathlib.Data.Set.Lattice
-import Mathlib.Data.Set.Function
+import Mathlib
+
+
+open Function
 
 section
-variable (g : β → α) (x : α)
+variable {α β : Type*} [Inhabited β] (g : β → α) (x : α)
 
 #check (invFun g : α → β)
 #check (leftInverse_invFun : Injective g → LeftInverse (invFun g) g)

@@ -1,0 +1,31 @@
+name = "lean_portfolio"
+version = "0.1.0"
+defaultTargets = ["Basic", "Imp", "LftCM", "MIL", "Foundations"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.36.0"
+
+# Functional Programming in Lean, chapter 1
+[[lean_lib]]
+name = "Basic"
+globs = ["Basic.+"]
+
+[[lean_lib]]
+name = "Imp"
+globs = ["Imp.+"]
+
+# Lean for the Curious Mathematician
+[[lean_lib]]
+name = "LftCM"
+globs = ["Lean_for_the_Curious_Mathematician.+"]
+
+# Mathematics in Lean
+[[lean_lib]]
+name = "MIL"
+globs = ["MIL.+"]
+
+[[lean_lib]]
+name = "Foundations"
+globs = ["Foundations.+"]

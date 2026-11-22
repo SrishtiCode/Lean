@@ -1,8 +1,8 @@
-import MIL.Common
+import Mathlib
 
--- Import the common definitions, theorems, and tools used in
--- Mathematics in Lean.
-import MIL.Common
+namespace Overview
+
+
 
 -- Open the Nat namespace so we can use natural-number declarations
 -- without writing Nat. before every name.
@@ -234,5 +234,4 @@ example : ∀ m n : Nat, Even n → Even (m * n) := by
   -- available in this Mathematics in Lean environment.
   simp [*, parity_simps]
 
-
-**Important:** `import MIL.Common` should appear only once in the actual file; it is repeated above only to introduce the first section's explanation. In your working file, keep the import at the very top and remove the duplicate line inside the comments.
+end Overview
